@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Skyhawk Flight Instruments (https://github.com/uw-ray/Skyhawk-Flight-Instruments)
 By Raymond Blaga (raymond.blaga@gmail.com), Edward Hanna (edward.hanna@senecacollege.ca), Pavlo Kuzhel (pavlo.kuzhel@senecacollege.ca)
 
@@ -18,7 +18,7 @@ Published under GPLv3 License.
     <script src="js/d3.min.js"></script>
     <script src="js/jquery.flightindicators.js"></script>
     <link rel="stylesheet" type="text/css" href="css/flightindicators.css" />
-    <script src="js/bootstrap.min.js"></script>    
+    <script src="js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
 </head>
 
@@ -30,6 +30,9 @@ Published under GPLv3 License.
         </div>
         <div>
             <button id="airspeedButton" class="btn btn-default" type="submit">Button</button>
+        </div>
+        <div class="value">
+
         </div>
     </div>
 
@@ -52,8 +55,8 @@ Published under GPLv3 License.
             // Airspeed update
             airspeed.setAirSpeed(increment);
             increment++;
-            
-            if(increment == 300){
+
+            if(increment == 30){
                 clearInterval(myInterval);
                 sleep(1000);
                 $("#airspeedButton").attr('disabled',false);
@@ -72,7 +75,7 @@ Published under GPLv3 License.
             $("#airspeedButton").text("Playing");
             doAirSpeed();
         });
-        
+
   </script>
 
 </body>

@@ -1,4 +1,4 @@
-/* 
+/*
 Skyhawk Flight Instruments (https://github.com/uw-ray/Skyhawk-Flight-Instruments)
 By Raymond Blaga (raymond.blaga@gmail.com), Edward Hanna (edward.hanna@senecacollege.ca), Pavlo Kuzhel (pavlo.kuzhel@senecacollege.ca)
 
@@ -17,14 +17,15 @@ Published under GPLv3 License.
         var built = true,
         settings = $.extend({
             size : 400,
-            showBox : true,
-            showScrews : true,
+            showBox : false,
+            showScrews : false,
             showIndicatorInner : true,
             airspeed : 0,
             trueairspeed: 0,
+            rpm: 0,
             roll : 0,
             pitch : 0,
-            off_flag: true,
+            off_flag: false,
             ils: true,
             ils_localizer: 0,
             ils_glideslope: 0,
@@ -39,7 +40,7 @@ Published under GPLv3 License.
             beacontwoshow : false,
             vario : 0,
             img_directory : 'img/'
-            }, options 
+            }, options
         ),
         constants = {
             pitch_bound: 26
@@ -50,19 +51,44 @@ Published under GPLv3 License.
 
             var deg = 0;
 
-            if (speed >= 0 && speed < 40) deg = speed * 0.9;
-            if (speed >= 40 && speed <= 160) deg = speed * 1.8 - 36;
-            if (speed > 70 && speed <= 160) deg = speed * 2 - 50;
-            if (speed > 160) deg = speed + 110;
-            if (speed > 200) deg = 311 + (speed % 2);
+            if (speed >= -5 && speed < 1000) deg = 180 + speed * 9.55;
+            // if (speed >= 40 && speed <= 160) deg = speed * 1.8 - 36;
+            // if (speed > 70 && speed <= 160) deg = speed * 2 - 50;
+            // if (speed > 160) deg = speed + 110;
+            // if (speed > 200) deg = 311 + (speed % 2);
+            console.log(speed, deg);
 
             placeholder.each(function(){
                 $(this).find('div.instrument.airspeed div.airspeed')
                     .css('transform', 'rotate(' + deg + 'deg)');
-                    
-            });    
+
+            });
 
         }
+
+        // RPM - Set rpm value
+        function _setRPM(rpm){
+
+            var deg = 0;
+
+            if (rpm >= -5 && rpm < 600) deg = 180 + rpm * 0.09;
+            if (rpm >= 600 && rpm < 1200) deg = 180 + 53.5 + (rpm-600) * 0.101 * 2;
+            if (rpm >= 1200 && rpm < 2000) deg = 354.7 + (rpm-1200) * 0.101;
+            // if (rpm >= 40 && rpm <= 160) deg = rpm * 1.8 - 36;
+            // if (rpm > 70 && rpm <= 160) deg = rpm * 2 - 50;
+            // if (rpm > 160) deg = rpm + 110;
+            // if (rpm > 200) deg = 311 + (rpm % 2);
+
+            console.log(rpm, deg);
+
+            placeholder.each(function(){
+                $(this).find('div.instrument.rpm div.rpm')
+                    .css('transform', 'rotate(' + deg + 'deg)');
+
+            });
+
+        }
+
 
         // Air Speed - Set true air speed
         function _setTrueAirSpeed(speed){
@@ -134,7 +160,7 @@ Published under GPLv3 License.
                 $(this).find('div.instrument.altimeter div.altimeter_hand100').css('transform', 'rotate(' + hand100 + 'deg)');
                 $(this).find('div.instrument.altimeter div.altimeter_hand1000').css('transform', 'rotate(' + hand1000 + 'deg)');
                 $(this).find('div.instrument.altimeter div.altimeter_hand10000').css('transform', 'rotate(' + hand10000 + 'deg)');
-            });    
+            });
         }
 
         // Altimeter - Set pressure (by default inHg; set milibar to true if you wish to use mbar)
@@ -158,10 +184,10 @@ Published under GPLv3 License.
 
             placeholder.each(function(){
                 $(this).find('div.instrument.altimeter div.altimeter_pressurembar').css('transform', 'rotate(' + pressure1 + 'deg)');
-            });    
+            });
             placeholder.each(function(){
                 $(this).find('div.instrument.altimeter div.altimeter_pressureinhg').css('transform', 'rotate(' + -pressure2 + 'deg)');
-            });            
+            });
 
         }
 
@@ -232,24 +258,24 @@ Published under GPLv3 License.
         function _setHeading(heading){
             placeholder.each(function(){
                 $(this).find('div.instrument.heading div.heading_yaw').css('transform', 'rotate(' + -heading + 'deg)');
-            });    
+            });
         }
 
         // Heading - Set beacon one direction
         function _setBeaconOne(heading, visible){
             if (visible) placeholder.each(function(){
                 $(this).find('div.instrument.heading div.heading_beacon_1').show().css('transform', 'rotate(' + heading + 'deg)');
-            });    
+            });
             else placeholder.each(function(){
                 $(this).find('div.instrument.heading div.heading_beacon_1').hide();
             });
-        }        
+        }
 
         // Heading - Set beacon two direction
         function _setBeaconTwo(heading, visible){
             if (visible) placeholder.each(function(){
                 $(this).find('div.instrument.heading div.heading_beacon_2').show().css('transform', 'rotate(' + heading + 'deg)');
-            });    
+            });
             else placeholder.each(function(){
                 $(this).find('div.instrument.heading div.heading_beacon_2').hide();
             });
@@ -266,7 +292,7 @@ Published under GPLv3 License.
                     .css('transform', 'rotate(' + deg + 'deg)')
                     .css('transition', 'transform 1.0s linear');
 
-            });    
+            });
         }
 
         // Set size of instrument
@@ -307,6 +333,12 @@ Published under GPLv3 License.
                     $(this).html('<div class="instrument airspeed"><div class="indicator_background"><img src="' + settings.img_directory + 'indicator_background_dashboard.svg" class="box" alt="" /></div><div class="indicator_background_screws"><img src="' + settings.img_directory + 'indicator_background_screws.svg" class="box" alt="" /></div><div class="indicator_inner"><div class="airspeed_trueairspeed"><img src="' + settings.img_directory + 'airspeed_trueairspeed.svg" class="box" alt="" /></div><div class="airspeed_markings"><img src="' + settings.img_directory + 'airspeed_markings.svg" class="box" alt="" /></div><div class="airspeed box"><img src="' + settings.img_directory + 'airspeed_hand.svg" class="box" alt="" /></div></div><div class="indicator_foreground"><img src="' + settings.img_directory + 'indicator_foreground.svg" class="box" alt="" /></div></div>');
                     _setAirSpeed(settings.airspeed);
                     _setTrueAirSpeed(settings.trueairspeed);
+                break
+
+                case 'rpm':
+                    $(this).html('<div class="instrument rpm"><div class="indicator_background"><img src="' + settings.img_directory + 'indicator_background_dashboard.svg" class="box" alt="" /></div><div class="indicator_background_screws"><img src="' + settings.img_directory + 'indicator_background_screws.svg" class="box" alt="" /></div><div class="indicator_inner"><div class="airspeed_trueairspeed"><img src="' + settings.img_directory + 'airspeed_trueairspeed.svg" class="box" alt="" /></div><div class="rpm_markings"><img src="' + settings.img_directory + 'rpm_markings.svg" class="box" alt="" /></div><div class="rpm box"><img src="' + settings.img_directory + 'rpm_hand.svg" class="box" alt="" /></div></div><div class="indicator_foreground"><img src="' + settings.img_directory + 'indicator_foreground.svg" class="box" alt="" /></div></div>');
+                    _setRPM(settings.rpm);
+                    //_setTrueAirSpeed(settings.trueairspeed);
                 break
 
                 case 'attitude':
@@ -361,6 +393,7 @@ Published under GPLv3 License.
         this.setAirSpeed = function(speed){_setAirSpeed(speed);}
         this.setTrueAirSpeed = function(speed){_setTrueAirSpeed(speed);}
         this.setRoll = function(roll){_setRoll(roll);}
+        this.setRPM = function(rpm){_setRPM(rpm);}
         this.setPitch = function(pitch){_setPitch(pitch);}
         this.setOffFlag = function(visible){_setOffFlag(visible);}
         this.setILS = function(visible){_setILS(visible);}
