@@ -8,6 +8,35 @@ By Sébastien Matton (seb_matton@hotmail.com)
 Published under GPLv3 License.
 */
 
+
+
+// these functions reused form https://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle
+
+function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+  var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
+
+  return {
+    x: centerX + (radius * Math.cos(angleInRadians)),
+    y: centerY + (radius * Math.sin(angleInRadians))
+  };
+}
+
+function describeArc(x, y, radius, startAngle, endAngle){
+
+    var start = polarToCartesian(x, y, radius, endAngle);
+    var end = polarToCartesian(x, y, radius, startAngle);
+
+    var largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+    var d = [
+        "M", start.x, start.y,
+        "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
+    ].join(" ");
+
+    return d;
+}
+
+
 (function($) {
 
     "use strict";
@@ -64,6 +93,11 @@ Published under GPLv3 License.
 
             });
 
+        }
+
+        function _setAirSpeedRange(min, max){
+           $(this).find('div.instrument.airspeed div.airspeed .optimal_values').attr("d", describeArc(200, 400, 100, 0, 180));
+           $(this).find('div.instrument.airspeed div.airspeed .optimal_values').attr("display", "1");
         }
 
         // RPM - Set rpm value
@@ -330,7 +364,27 @@ Published under GPLv3 License.
             switch(type){
 
                 case 'airspeed':
-                    $(this).html('<div class="instrument airspeed"><div class="indicator_background"><img src="' + settings.img_directory + 'indicator_background_dashboard.svg" class="box" alt="" /></div><div class="indicator_background_screws"><img src="' + settings.img_directory + 'indicator_background_screws.svg" class="box" alt="" /></div><div class="indicator_inner"><div class="airspeed_trueairspeed"><img src="' + settings.img_directory + 'airspeed_trueairspeed.svg" class="box" alt="" /></div><div class="airspeed_markings"><img src="' + settings.img_directory + 'airspeed_markings.svg" class="box" alt="" /></div><div class="airspeed box"><img src="' + settings.img_directory + 'airspeed_hand.svg" class="box" alt="" /></div></div><div class="indicator_foreground"><img src="' + settings.img_directory + 'indicator_foreground.svg" class="box" alt="" /></div></div>');
+                    $(this).html( '<div class="instrument airspeed"> <div class="indicator_background">' +
+                                      '<img src="' + settings.img_directory + 'indicator_background_dashboard.svg" class="box" alt="" onload="SVGInject(this)" />' +
+                                  '</div>' +
+                                  '<div class="indicator_background_screws">'+
+                                      '<img src="' + settings.img_directory + 'indicator_background_screws.svg" class="box" alt="" onload="SVGInject(this)" />' +
+                                  '</div>' +
+                                  '<div class="indicator_inner">' +
+                                      '<div class="airspeed_trueairspeed">' +
+                                          '<img src="' + settings.img_directory + 'airspeed_trueairspeed.svg" class="box" alt="" onload="SVGInject(this)" />' +
+                                      '</div>' +
+                                      '<div class="airspeed_markings">' +
+                                          '<img src="' + settings.img_directory + 'airspeed_markings.svg" class="box" alt="" onload="SVGInject(this)" />' +
+                                      '</div>' +
+                                      '<div class="airspeed box">' +
+                                          '<img src="' + settings.img_directory + 'airspeed_hand.svg" class="box" alt=""  onload="SVGInject(this)"/>' +
+                                      '</div>' +
+                                  '</div>' +
+                                  '<div class="indicator_foreground">' +
+                                      '<img src="' + settings.img_directory + 'indicator_foreground.svg" class="box" alt="" onload="SVGInject(this)" />'+
+                                  '</div>'+
+                                  '</div>');
                     _setAirSpeed(settings.airspeed);
                     _setTrueAirSpeed(settings.trueairspeed);
                 break
@@ -392,6 +446,7 @@ Published under GPLv3 License.
         // Public methods
         this.setAirSpeed = function(speed){_setAirSpeed(speed);}
         this.setTrueAirSpeed = function(speed){_setTrueAirSpeed(speed);}
+        this.setAirSpeedRange = function(min, max){_setAirSpeedRange(min, max);}
         this.setRoll = function(roll){_setRoll(roll);}
         this.setRPM = function(rpm){_setRPM(rpm);}
         this.setPitch = function(pitch){_setPitch(pitch);}

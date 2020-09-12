@@ -1,0 +1,3 @@
+[submodule "lib/svg-inject"]
+	path = lib/svg-inject
+	url = git@github.com:iconfu/svg-inject.git
