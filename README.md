@@ -17,11 +17,11 @@ Currently supported indicators are :
 * Turn Coordinator
 * Heading
 * Vertical Speed
+* RPM 
 
 Our usage
 --------------
 We use this SW as an dashboard platform for controlling unmanned drones (UAVs) and visualizing their state. Supported should be all flight stacks that use MavLink. It is tested with PX4 autopilot. 
-
 
 
 Usage
