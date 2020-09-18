@@ -1,28 +1,28 @@
-Skyhawk Flight Instruments jQuery Plugin
+ThuderFly flight indicators
 ===================
 
-The Skyhawk Flight Instrument plugin is a fork of the excellent jQuery Flight Indicators Plugin (https://github.com/sebmatton/jQuery-Flight-Indicators), with several additions and updated graphics. The instruments are modelled after those typically found in a Cessna 172 Skyhawk aircraft.
+This repository is a fork of the Skyhawk-Flight-Instruments(https://github.com/uw-ray/Skyhawk-Flight-Instruments) library. 
 
 This plugin allows you to display high quality flight indicators using HTML, CSS3, jQuery and SVG images. The methods make customization and real time implementation really easy. Further, since all the images are vector svg you can resize the indicators to your application without any quality loss!
 
+This fork contains adjustments, which are used for fast and accurate reading of indicators. The changes mainly are:
+ * Clean gauges (remove of graphic ballast)
+ * Expanding the posibilities of indicators (show numerical value, in-code svg code, ..)
+
 Currently supported indicators are :
 
-* Air Speed
+* AirSpeed
 * Attitude
 * Altimeter
 * Turn Coordinator
 * Heading
 * Vertical Speed
 
-Examples
--------------------
-Here is an example of a full dashboard:
+Our usage
+--------------
+We use this SW as an dashboard platform for controlling unmanned drones (UAVs) and visualizing their state. Supported should be all flight stacks that use MavLink. It is tested with PX4 autopilot. 
 
-![demo_example](https://raw.githubusercontent.com/uw-ray/Skyhawk-Flight-Instruments/master/docs/dashboard.png "Indicator examples")
 
-The image below shows a zoomed altimeter. Vector images allows you to keep high quality render with large indicators.
-
-![demo_highres](https://raw.githubusercontent.com/uw-ray/Skyhawk-Flight-Instruments/master/docs/zoom_example.png "High resolution indicator")
 
 Usage
 -------------------
@@ -129,12 +129,6 @@ To circumvent this issue (for development purposes mainly), the main JS file wil
 
 Authors and License
 -----------
-Authors : Raymond Blaga (raymond.blaga@gmail.com), Edward Hanna (edward.hanna@senecacollege.ca), Pavlo Kuzhel (pavlo.kuzhel@senecacollege.ca), Sébastien Matton (seb_matton@hotmail.com)
-
-Skyhawk Flight Instruments was made for use in an online course with the purpose of training future pilots, developed by Seneca College Centre for Development of Open Technology.
+Authors : Roman Dvořák (dvorak.roman@thunderfly.cz) Raymond Blaga (raymond.blaga@gmail.com), Edward Hanna (edward.hanna@senecacollege.ca), Pavlo Kuzhel (pavlo.kuzhel@senecacollege.ca), Sébastien Matton (seb_matton@hotmail.com)
 
 The project is published under GPLv3 License. See LICENSE file for more informations
-
-Thanks
----------
-Thanks to Sébastien Matton and everyone involved in the making of the jQuery Flight Indicators Plugin.
