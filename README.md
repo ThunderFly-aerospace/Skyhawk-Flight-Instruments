@@ -1,7 +1,7 @@
 ThuderFly flight indicators
 ===================
 
-This repository is a fork of the Skyhawk-Flight-Instruments(https://github.com/uw-ray/Skyhawk-Flight-Instruments) library. 
+This repository is a fork of the [Skyhawk-Flight-Instruments](https://github.com/uw-ray/Skyhawk-Flight-Instruments) library. 
 
 This plugin allows you to display high quality flight indicators using HTML, CSS3, jQuery and SVG images. The methods make customization and real time implementation really easy. Further, since all the images are vector svg you can resize the indicators to your application without any quality loss!
 
