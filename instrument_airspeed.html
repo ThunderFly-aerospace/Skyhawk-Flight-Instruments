@@ -55,6 +55,7 @@ Published under GPLv3 License.
 
             // Airspeed update
             airspeed.setAirSpeed(increment);
+            airspeed.setAirSpeedRange(increment-3, increment+3);
             increment++;
 
             if(increment == 30){
