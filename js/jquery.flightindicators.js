@@ -786,12 +786,12 @@ return code
             // if (speed > 70 && speed <= 160) deg = speed * 2 - 50;
             // if (speed > 160) deg = speed + 110;
             // if (speed > 200) deg = 311 + (speed % 2);
-            console.log(speed, deg);
+            //console.log(speed, deg);
 
             placeholder.each(function(){
-                console.log( $(this).find('#gauge_arm'));
+                //console.log( $(this).find('#gauge_arm'));
                 $(this).find('#gauge_arm').attr("transform", "rotate("+deg+")");
-                $(this).find('#value_content').text(speed);
+                $(this).find('#value_content').text(Math.round(speed));
             });
         }
 
@@ -826,7 +826,7 @@ return code
             // if (rpm > 160) deg = rpm + 110;
             // if (rpm > 200) deg = 311 + (rpm % 2);
 
-            console.log(rpm, deg);
+            //console.log(rpm, deg);
 
             placeholder.each(function(){
                 $(this).find('div.instrument.rpm div.rpm')
@@ -954,7 +954,7 @@ return code
 
                 // Inject SVG path via JS if the code above doesn't work
                 } catch (err) {
-                    console.log("Unable to load turn_ball_path.svg. Injecting a path instead.");
+                    //console.log("Unable to load turn_ball_path.svg. Injecting a path instead.");
                     placeholder.each(function(){
                         d3.select($(this).find('div.instrument.turn div.turn_ball_path')[0]).append("svg")
                             .attr("width", 400)
