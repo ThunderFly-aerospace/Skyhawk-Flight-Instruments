@@ -129,6 +129,6 @@ To circumvent this issue (for development purposes mainly), the main JS file wil
 
 Authors and License
 -----------
-Authors : Roman Dvořák (dvorak.roman@thunderfly.cz) Raymond Blaga (raymond.blaga@gmail.com), Edward Hanna (edward.hanna@senecacollege.ca), Pavlo Kuzhel (pavlo.kuzhel@senecacollege.ca), Sébastien Matton (seb_matton@hotmail.com)
+Authors : Roman Dvořák (dvorakroman@thunderfly.cz) Raymond Blaga (raymond.blaga@gmail.com), Edward Hanna (edward.hanna@senecacollege.ca), Pavlo Kuzhel (pavlo.kuzhel@senecacollege.ca), Sébastien Matton (seb_matton@hotmail.com)
 
 The project is published under GPLv3 License. See LICENSE file for more informations
